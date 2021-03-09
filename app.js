@@ -85,10 +85,9 @@ app.use(function(req, res, next){
 
 
       
-
+app.use('/', require('./routes/User'));
 app.use('/', require('./routes/story'));
 app.use('/story/:id', require('./routes/comment'));
-app.use('/', require('./routes/User'));
 app.use('/banner', require('./routes/banner'));
 app.use('/admin', require('./routes/admin'));
 app.use('/css', express.static(__dirname +'/node_modules/bootstrap/dist/css'));
