@@ -1,0 +1,58 @@
+                    {{>_header}}
+
+
+<div class="jumbotron mt-4 mx-auto d-none d-lg-block" id="ad1">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-none d-sm-block" id="ad2">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-block d-none d-lg-none" id="ad3">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="container my-4  text-center ">
+            <div class="card">
+                <div class="card-header bg-danger mb-2">
+                    <h5 class="text-white">Your stories</h5>
+                </div>
+                {{#if stories}}
+                {{#each stories}}
+                    <div class="card-body " id="lat">
+                  <a href="/story/{{_id}}" id="tit"><h5 class="card-title">{{title}}</h5></a>
+                  <span> by <span class="text-danger"><a href="/user/{{user._id}}/{{user.username}}" class="text-danger">{{user.username}}.</a> </span>{{comments.length}} comment & {{views}} views.</span>                    
+                  <div class="container d-flex justify-content-between">
+         <a href="/edit/story/{{_id}}"><i class="fa fa-edit"></i></a> 
+         <a href="/delete/story/{{_id}}" class="text-danger"><i class="fa fa-trash"></i></a>
+
+                  </div>
+                    </div>
+                     {{/each}}
+                     {{ else }}
+                     <p> No story yet</p>
+                     {{/if}}
+                    <div class="card-footer d-flex justify-content-center">
+                 <ul class="nav">
+                     {{#if startIndex}}
+          <li class="nav-item ">
+            <a class="nav-link" href="?page={{startIndex}}">[ <i class="fa fa-angle-double-left"></i> ]</a>
+        </li>
+        {{/if}}
+      
+          {{#if nextIndex}}
+         <li class="nav-item">
+            <a class="nav-link" href="?page={{nextIndex}}">[ <i class="fa fa-angle-double-right"></i> ]</a>
+        </li>
+        {{/if}}
+         </ul>
+            </div>
+        </div>
+        </div>
+
+        <style>
+            .fa-edit, .fa-trash{
+                font-size: 1.3em;
+            }
+        </style>

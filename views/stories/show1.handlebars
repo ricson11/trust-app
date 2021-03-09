@@ -1,0 +1,197 @@
+            {{>_header}}
+               {{>_msg}} 
+ <div class="jumbotron mt-4 mx-auto d-none d-lg-block" id="ad1">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-none d-sm-block" id="ad2">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-block d-none d-lg-none" id="ad3">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+ 
+ <div class="container-fluid mt-2 text-center " id="near">
+           <div class="container d-flex justify-content-center mt-3">
+                  <a href="/story/{{story._id}}/comment" class="mr-3">Add Comment </a>
+           </div>
+ <a class="info">Share this story on:</a> 
+<i class="fa fa-arrow-down"></i>
+           <div class="container my-2 d-none d-md-flex justify-content-center">
+<!-- AddToAny BEGIN -->
+
+<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+   
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_twitter"></a>
+<a class="a2a_button_email"></a>
+<a class="a2a_button_linkedin"></a>
+<a class="a2a_button_pinterest"></a>
+</div>
+
+</div>
+        <!-- AddToAny BEGIN -->
+<div class="container my-2 d-md-none d-sm-block d-flex justify-content-center">
+<div class="a2a_kit a2a_kit_size_32 a2a_default_style" >
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_twitter" ></a>
+<a class="a2a_button_whatsapp" ></a>
+<a class="a2a_button_telegram" ></a>
+<a class="a2a_button_pinterest" ></a>
+<a class="a2a_button_linkedin" ></a>
+</div>
+</div>
+    </div>
+
+<div class="container my-4">
+   
+    <div class="card">
+        <div class="card-header bg-danger">
+           <span><a href="/story/{{story._id}}" id="mytit"><span class="h5">{{story.title}}</span></a>  by: <span class="name"><a href="/user/{{user._id}}/{{story.user.username}}">{{story.user.username}} ({{story.user.gender}})</a></span> at {{formatDate story.date 'h:mma MMM D '}} ({{story.views}}) views</span>
+        </div>
+        <div class="card-body">
+    <p class="card-text ">{{{story.details}}}</p>
+    {{#if story.image}}
+     <img src="{{story.image}}" class="d-block mx-auto mb-3" id="shows">
+         {{/if}}
+        </div>
+          
+           
+        <div class="card-footer d-flex justify-content-center">
+                 <a href="/" class="mr-3" id="tit">Report</a>
+
+        <span><a href="/" id="tit">like</a> <span class="ml-2">  <a href="/" id="tit">dislike</a> </span>
+        </div>  
+    </div>
+</div>
+<div class="container text-center">
+    {{#if comments}}
+    {{#each comments}}
+    <div class="card mb-3">
+        <div class="card-header bg-danger">
+  <span>Comment by: <span class="name"><a href="/user/{{commentUser._id}}/{{commentUser.username}}">{{commentUser.username}} ({{commentUser.gender}})</a></span> at {{formatDate commentDate 'h:mma MMM D '}}</span>
+
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{commentBody}}</p>
+            {{#if commentImage}}
+     <img src="{{commentImage}}" class="d-block mx-auto " id="shows">
+     {{/if}}
+        </div>
+        
+        <div class="card-footer d-flex justify-content-center" id="others">
+            <a href="/story/{{story._id}}/comment/delete/{{_id}}" class="mr-3">Delete</a>
+         <a href="/story/{{story._id}}/comment/{{_id}}/edit">Modify</a>
+            <a href="/" class="mx-3" id="tit">Report</a>
+        <span><a href="/" id="tit">Like</a> <span class="ml-2">  <a href="/">Dislike</a> </span>
+        
+        </div>
+        
+    </div>
+    {{else}}
+    <p>noo</p>
+    {{/each}}
+    {{/if}}
+</div>
+{{#if pages}}
+<div class="container my-2 d-flex justify-content-center">
+    <ul class="nav">
+        {{#if startIndex}}
+          <li class="nav-item ">
+            <a class="nav-link" href="?page={{startIndex}}">[ <i class="fa fa-angle-double-left"></i> ]</a>
+        </li>
+        {{/if}}
+        
+        <li class="nav-item">
+            <a class="nav-link" href="?page=1">[ 1 ]</a>
+        </li>
+         {{#if page2}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=2">[ 2 ]</a>
+        </li>
+        {{/if}}
+        {{#if page3}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=3">[ 3 ]</a>
+        </li>
+          {{/if}}
+           {{#if pageNext}}
+         <li class="nav-item">
+            <a class="nav-link" href="?page={{nextIndex}}">[ <i class="fa fa-angle-double-right"></i> ]</a>
+        </li>
+        {{/if}}
+    </ul>
+</div>
+{{/if}}
+         <div class="container text-center mt-3">
+             <a href="/story/{{story._id}}/comment">Add Comment</a>
+         </div>
+
+<div class="jumbotron mt-4 mx-auto d-none d-lg-block" id="ad1">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-none d-sm-block" id="ad2">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-block d-none d-lg-none" id="ad3">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="container text-center">
+    <p class="text-danger" id="may">You may also like</p>
+     {{#if similar}}
+     {{#each similar}}
+          <a href="/story/{{_id}}"><p>{{title}}</p></a>
+       {{/each}}
+       {{/if}}
+</div>
+
+
+<style>
+    #others a{
+        text-decoration: none;
+    }
+    #may{
+        font-weight: bold;
+    }
+    #shows{
+    width:250px;
+    height:250px;
+}
+#near{
+    border-top: 1px solid rgb(141, 58, 58);
+}
+.name a{
+    text-decoration: none;
+    color:white;
+}
+#mytit{
+    text-decoration: none;
+    text-transform: capitalize;
+    color:wheat;
+}
+.btn{
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    background-color:#f1f1f1;
+    cursor: pointer;
+}
+.color{
+    background: #ffcce9
+}
+.pages:hover{
+    cursor:pointer;
+}
+
+</style>
+
+
+
+<script async src="https://static.addtoany.com/menu/page.js"></script>
+<!-- AddToAny END -->
+
+

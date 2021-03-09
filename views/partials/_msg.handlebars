@@ -1,0 +1,36 @@
+{{#if success_msg}}
+
+<div class="alert alert-success" id="message">
+    <p class="text-center">{{success_msg}}</p>
+</div>
+{{/if}}
+{{#if error_msg}}
+
+<div class="alert alert-warning" id="message">
+    <p class="text-center">{{error_msg}}</p>
+</div>
+{{/if}}
+
+{{#if error}}
+
+<div class="alert alert-warning" id="message">
+    <p class="text-center">{{error}}</p>
+</div>
+{{/if}}
+
+
+{{#each errors}}
+<div class="alert alert-warning" id="message">
+    <p class="text-center">{{text}}</p>
+</div>
+{{/each}}
+
+
+
+<script>
+    var message = document.querySelector('#message')
+
+      setTimeout(function(){
+          message.style.display='none';
+      }, 4000)
+</script>

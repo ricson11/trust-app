@@ -1,0 +1,48 @@
+<div class="container my-4">
+    <form action="/report" method="POST">
+    <h5 class="text-center my-4">Report user {{user.username}}</h5>
+    <div class="form-group">
+        <label for="sender">Your name (reporter)</label>
+        <input type="text" class="form-control" name="sender">
+    </div>
+      <div class="form-group">
+             <label for="receiver">User (reportee)</label>
+
+        <input type="text" class="form-control " name="receiver" placeholder="{{user.username}}" id="ema2">
+    </div>
+    <div class="form-group">
+          <label for="sender">Your report</label>
+
+        <textarea name="report" class="form-control" rows="5"  placeholder="write your report here.."></textarea>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-danger" type="submit">Report</button>
+    </div>
+    </form>
+</div>
+
+
+<style>
+    .form-control{
+        background: ghostwhite;
+    }
+    #ema2{
+        color:ghostwhite;
+    }
+</style>
+
+
+<script>
+
+   var emabtn = document.querySelector('#ema') ;
+    var emabtn2 = document.querySelector('#ema2') ;
+   var emabtn3 = document.querySelector('#ema3') ;
+
+
+
+   
+   emabtn2.addEventListener('mousedown', function(e){
+     e.preventDefault();
+   })
+   
+</script>

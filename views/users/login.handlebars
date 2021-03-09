@@ -1,0 +1,44 @@
+           {{>_header}}
+           {{>_msg}}
+<div class="container my-4">
+    <h5 class="text-dark text-center my-3"> Account Login</h5>
+    <form action="/login" method="POST">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" class="form-control" >
+    </div>
+     
+     
+    <div class="form-group">
+      <label for="password">Password</label>
+
+        <input type="password" name="password" class="form-control">
+    </div>
+    
+      <div class="form-group">
+          <button class='btn btn-danger' type="submit">Login</button>
+      </div>
+    </form>
+</div>
+<div class="container my-2">
+   <a href="/forgot"><p>Forgotten password?</p></a>
+</div>
+<style>
+    select{
+        background: ghostwhite;
+    }
+    .form-control{
+        background: ghostwhite;
+    }
+    label{
+        color:rgb(161, 40, 40);
+        font-weight: bold;
+    }
+      #select{
+        width:29%;
+    }
+    select > option{
+        background: ghostwhite;
+    }
+  
+</style>

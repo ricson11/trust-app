@@ -1,0 +1,30 @@
+           {{>_header}}
+
+<div class="container  my-4" id="comment">
+    <form action="/story/{{story_id}}/comment/{{comment._id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+   <input type="hidden" name="_method" value="PUT">
+    <div class="form-group">
+        <p class="text-danger">Comment</p>
+    <textarea class="form-control" name="commentBody" rows="8"> {{comment.commentBody}}</textarea>
+    </div>
+    <div class="form-group">
+     <p class="text-danger">Upload Image</p>
+      <input type="file" name="commentImage">
+    </div><br>
+    <div class="form-group">
+        <button class="btn btn-danger text-white">Add Comment</button>
+    </div>
+    </form>
+</div>
+
+
+
+
+<style>
+    #comment p{
+            font-weight: bold;
+    }
+    #comment textarea{
+        background: ghostwhite;
+    }
+</style>

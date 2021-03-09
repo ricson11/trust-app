@@ -1,0 +1,40 @@
+
+<div class="container my-4">
+    <h5 class="text-dark text-center my-3"> Admin update</h5>
+    <form action="/update/user/{{user._id}}?_method=PUT" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+      {{#if user.isAdmin}}
+     <p class="text-center">user {{user.username}} is a certified admin of trust.com</p>
+     {{ else }}
+          <p class="text-center"> user {{user.username}} is not admin</p>
+       {{/if}}
+     <div class="form-group">
+      <label for="Admin">Admin</label>
+
+        <input type="password" name="admin" class="form-control" >
+    </div>
+      <div class="form-group">
+          <button class='btn btn-danger' type="submit">Update</button>
+      </div>
+    </form>
+</div>
+
+<style>
+    select{
+        background: ghostwhite;
+    }
+    .form-control{
+        background: ghostwhite;
+    }
+    label{
+        color:rgb(161, 40, 40);
+        font-weight: bold;
+    }
+      #select{
+        width:29%;
+    }
+    select > option{
+        background: ghostwhite;
+    }
+  
+</style>

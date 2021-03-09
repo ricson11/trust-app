@@ -1,0 +1,68 @@
+           {{>_header}}
+
+<div class="container my-4">
+    <h5 class="text-dark text-center my-3">Account Signup</h5>
+    <form action="/register" method="POST">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" class="form-control" placeholder="your username" value="{{username}}">
+    </div>
+     <div class="form-group">
+         <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" placeholder="your email address" value="{{email}}">
+    </div>
+     
+     <div class="form-group">
+         <label for="gender">Gender</label>
+         <select name="gender" class="form-control" id="select">
+            <option >Select</option>
+
+        <option value="m">Male</option>
+        <option value="f">Female</option>
+
+     </select>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+
+        <input type="password" name="password" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="password2">Confirm Password</label>
+
+        <input type="password" name="password2" class="form-control">
+    </div>
+    {{#if user.isAdmin}}
+    <div class="form-group">
+      <label for="Admin">Admin</label>
+
+        <input type="password" name="admin" class="form-control">
+    </div>
+    {{/if}}
+      <div class="form-group">
+          <button class='btn btn-danger' type="submit">Signup</button>
+      </div>
+    </form>
+</div>
+
+<style>
+    select{
+        background: ghostwhite;
+    }
+    .form-control{
+        background: ghostwhite;
+    }
+    label{
+        color:rgb(161, 40, 40);
+        font-weight: bold;
+    }
+      #select{
+        width:29%;
+    }
+    select > option{
+        background: ghostwhite;
+    }
+    @media (max-width:768px){
+      
+    }
+</style>

@@ -1,0 +1,81 @@
+                    {{>_header}}
+
+
+<div class="jumbotron mt-4 mx-auto d-none d-lg-block" id="ad1">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-none d-sm-block" id="ad2">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-block d-none d-lg-none" id="ad3">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="container my-4 ">
+    <div class="row">
+        <div class="col-sm-8 text-center">
+            <div class="card">
+                <div class="card-header bg-danger mb-2">
+                    <h5 class="text-white">Search result for {{query}}</h5>
+                </div>
+                {{#if searches}}
+                {{#each searches}}
+                    <div class="card-body " id="lat">
+                  <a href="/story/{{_id}}" id="tit"><h5 class="card-title">{{title}}</h5></a>
+               <!--   <a href="/edit/story/{{_id}}">edit</a>
+                 <a href="/delete/story/{{_id}}">delete</a>-->
+       <span> by <span class="text-danger"><a href="/user/{{user._id}}/{{user.username}}" class="text-danger">{{user.username}}.</a> </span>{{comments.length}} comment & {{views}} views.</span>                    
+                     
+                    </div>
+                     {{/each}}
+                     {{ else }}
+                     <p> No search result found for {{quer}}</p>
+                     {{/if}}
+                    <div class="card-footer d-flex justify-content-center">
+                 <ul class="nav">
+                     {{#if startIndex}}
+          <li class="nav-item ">
+            <a class="nav-link" href="?page={{startIndex}}">[ <i class="fa fa-angle-double-left"></i> ]</a>
+        </li>
+        {{/if}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=1">[ 1 ]</a>
+        </li>
+        {{#if page2}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=2">[ 2 ]</a>
+        </li>
+        {{/if}}
+        {{#if page3}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=3">[ 3 ]</a>
+        </li>
+        {{/if}}
+        {{#if page4}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=4">[ 4 ]</a>
+        </li>
+        {{/if}}
+        {{#if page5}}
+         <li class="nav-item">
+            <a class="nav-link" href="?page=5">[ 5 ]</a>
+        </li>
+        {{/if}}
+        {{#if page6}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=6">[ 6 ]</a>
+        </li>
+        {{/if}}
+          {{#if pageNext}}
+         <li class="nav-item">
+            <a class="nav-link" href="?page={{nextIndex}}">[ <i class="fa fa-angle-double-right"></i> ]</a>
+        </li>
+        {{/if}}
+    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>

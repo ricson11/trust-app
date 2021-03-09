@@ -1,0 +1,246 @@
+body{
+    margin:0;
+    padding:0;
+    background: ghostwhite;
+    user-select: none;
+}
+#upper{
+    height:50vh;
+    background: linear-gradient(to right, rgba(165, 42, 42, 0.493), rgba(128, 128, 128, 0.521), rgba(165, 42, 42, 0.493)),url(../images/ad3.jpg);
+    background-position:center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+
+#ad1{
+    width:970px;
+    height:90px;
+}
+#ad2{
+    width:320px;
+    height:100px;
+}
+#side1{
+    width:250px;
+    height:250px;
+}
+#ad3{
+    width:468px;
+    height:60px;
+    display: none;
+}
+#copy{
+    margin-top: 3em;
+    font-weight:bold;
+}
+#con{
+    background: ghostwhite;
+}
+#privacy{
+    text-decoration: none;
+    font-weight: bold;
+    margin-top:1em;
+    
+}
+#privacy a{
+    color:white;
+}
+.write{
+    font-weight: bold;
+    padding:10px;
+}
+#footer{
+    min-height:50vh;
+    padding:20px;
+    
+}
+.nav-link{
+       color: rgb(207, 58, 58);
+       font-weight: bold;
+       text-decoration: none;
+}
+.nav-link:hover{
+           color:white;
+}
+#footer{
+      color:white;
+}
+#myForm{
+    display:none;
+}
+#removeSearch, #listRemove{
+    display: none;
+    font-size: 1.4em;
+    color:white;
+}
+
+#navi a{
+    display:block;
+    font-weight:bold;
+    color: rgb(207, 58, 58);
+    padding:10px;
+   
+}
+#note5{
+    display: none;
+}
+#listRemove3{
+    display:none;
+    font-size: 1.4em;
+    position: fixed;
+    top:0;
+    z-index: 2;
+    color:white;
+}
+#list3{
+    color:white;
+    font-size: 1.4em;
+
+}
+#list{
+    display: none;
+}
+#navi i{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#navi{
+    display:none;
+    width:65%;
+    height: 100%;
+    position: fixed;
+    top:0px;
+    transition: 2s;
+    z-index: 1;
+    padding-top:20px;
+}
+#navi a{
+    color:white;
+    text-align: center;
+    font-size: 1.2em;
+    transition: 0.3s;
+    text-decoration: none;
+    border-bottom:2px dotted white;
+    
+}
+#navi a:hover{
+    color:black;
+}
+#head{
+    font-size: 1.5em;
+    display:none;
+}
+#search, #list3{
+              font-size: 1.4em;
+              display:none;
+              color: white;
+}
+.btn{
+    font-weight: bold;
+}
+#searchtext2{
+    background: ghostwhite;
+    padding:25px;
+   border-top: none;    
+}
+
+#head2{
+    font-size: 1.5em;
+    display:block;
+}
+#explore{
+    border-bottom: 1px solid rgb(141, 53, 53);
+    padding:10px;
+}
+#des{
+    color:white;
+    font-weight: bold;
+}
+.card{
+    background: ghostwhite;
+}
+#plat{
+    padding-top:10em;
+    text-align: center;
+    font-weight: bold;
+}
+#searchText{
+    background: ghostwhite;
+}
+#btn3{
+ 
+  font-weight:bolder;
+  font-size: 1.1em;
+}
+#searchtext3{
+        background: whitesmoke;
+}
+#pagination a{
+       color:white;
+       font-weight:bold;
+      
+      
+}
+#pagination a:hover{
+    color:red;
+}
+.active{
+    background: green;
+}
+#tit{
+    text-decoration: none;
+}
+#lat{
+    border-bottom: 1px solid grey;
+    background: ghostwhite
+}
+#trus{
+    text-decoration: none;
+}
+.card-body{
+        background: ghostwhite;
+}
+.card-title{
+    text-transform: capitalize;
+}
+.sake{
+    font-weight: bold;
+}
+.ados{
+    color: white;
+    font-weight: bold;
+}
+
+@media (max-width:500px){
+    #search, #list3{
+        font-size: 1.3em;
+        display:block;
+}
+#head{
+    font-size: 1.5em;
+    display:block;
+}
+.spon{
+    margin-top: 10px;
+}
+#head2{
+    font-size: 1.5em;
+    display:none;
+}
+#side1{
+    width:250px;
+    height:250px;
+}
+
+}
+@media(max-width:768px){
+    #ad3{
+        width:468px;
+        height:60px;
+        display: block;
+    }
+   
+}

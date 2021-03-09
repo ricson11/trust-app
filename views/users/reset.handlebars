@@ -1,0 +1,28 @@
+           {{>_header}}
+
+<div class="container my-4">
+    <h5 class="text-center">Reset Password</h5>
+    <form action="/reset/{{token}}" method="POST">
+    <div class="form-group">
+     <label for="password">Password</label>
+
+     <input type="password" name="password" class="form-control">
+
+    </div>
+     <div class="form-group">
+         <label for="password2">Confirm password</label>
+     <input type="password" name="password2" class="form-control">
+
+    </div>
+    <div class="form-group">
+        <button class='btn btn-danger' type="submit">Reset</button>
+    </div>
+    </form>
+</div>
+
+
+<style>
+    .form-control{
+        background: ghostwhite;
+    }
+</style>

@@ -1,0 +1,82 @@
+{{>_header}}
+
+<div class="container">
+    <h5 class="text-center my-4" id="ba">Banner Home</h5>
+</div>
+<div class="container-fluid my-4 text-center d-none d-lg-block">
+    <h5>large screen ads</h5>
+   {{#each banner1}}
+   <a href="{{url}}"><img src="{{ad.[0]}}" class=" " id="lagAd"></a>
+      <a href="/banner/delete/{{_id}}">Delete banner</a>
+
+   {{/each}}
+</div>
+
+<div class="container-fluid my-4 text-center d-none d-lg-block ">
+    <h5>Sidebar ads</h5>
+   {{#each banner1}}
+   <a href="{{url}}"><img src="{{ad.[1]}}" class="d-block mx-auto " id="sideAd"></a>
+      <a href="/banner/delete/{{_id}}">Delete banner</a>
+
+   {{/each}}
+</div>
+<div class="container-fluid my-4 text-center d-none d-lg-block ">
+    <h5>Medium screen ads</h5>
+   {{#each banner1}}
+   <a href="{{url}}"><img src="{{ad.[2]}}" class="d-block mx-auto " id="medAd"></a>
+      <a href="/banner/delete/{{_id}}">Delete banner</a>
+
+   {{/each}}
+</div>
+
+<div class="container-fluid my-4 text-center d-none d-lg-block">
+    <h5>Small screen ads</h5>
+   {{#each banner1}}
+   <a href="{{url}}"><img src="{{ad.[1]}}" class="d-block mx-auto " id="smAd"></a>
+   <a href="/banner/delete/{{_id}}">Delete banner</a>
+   {{/each}}
+</div>
+
+<div class="container">
+    
+  {{#each banners}}
+ 
+   <a href="{{url}}"><img src="{{ad.[0] }}" class="d-block mx-auto mb-2 " height="200px" width="200px" id=""></a>
+
+
+<img src="{{ad.[1] }}" class=" d-block mx-auto mb-2" width="200px" height="200px" id="">
+
+
+<img src="{{ad.[2] }}" class=" d-block mx-auto" width="200px" height="200px" id="">
+<img src="{{ad.[3]}}" class=" d-block mx-auto" width="200px" height="200px" id="">
+  
+ <!--   <a href="/banner/delete/{{_id}}">Delete banner</a>-->
+    
+   {{/each}}
+</div>
+
+<style>
+
+#lagAd{
+    height:90px;
+    width:970px;
+}
+#sideAd{
+    height:250px;
+    width:250px;
+}
+
+#medAd{
+    height:60px;
+    width:468px;
+}
+#smAd{
+    height:100px;
+    width:320px;
+}
+#ba{
+    border-bottom: 1px solid grey;
+}
+
+
+</style>

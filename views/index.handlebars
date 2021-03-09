@@ -1,0 +1,171 @@
+
+           {{>_header}}
+            {{>_msg}}
+
+
+<div class="container-fluid" id="upper">
+  <p class="text-white" id="plat">More than one million users sharing their stories on this platform</p>
+</div>
+{{#if lagBan}}
+{{#each lagBan}}
+<div class="container-fluid my-4 d-none d-lg-block">
+   <a href="{{url}}"> <img src="{{ad.[0]}}" class="d-block mx-auto" id="ad1"></a>
+</div>
+{{/each}}
+{{ else }}
+<div class="jumbotron mt-4 mx-auto d-none d-lg-block" id="ad1">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+{{/if}}
+{{#if lagBan}}
+{{#each lagBan}}
+ <div class="container my-4  d-md-none d-sm-block">
+     <a href="{{url}}"><img src="{{ad.[1]}}" class="d-block mx-auto" id="ad2"></a>
+ </div>
+ {{/each}}
+ {{ else }}
+<div class="jumbotron mt-4 mx-auto d-md-none d-sm-block" id="ad2">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+{{/if}}
+{{#if lagBan}}
+{{#each lagBan}}
+<div class="container my-4  d-md-block d-none d-lg-none">
+    <a href="{{url}}"><img src="{{ad.[2]}}" class="d-block mx-auto" id='ad3'></a>
+</div>
+{{/each}}
+ {{ else }}
+<div class="jumbotron mt-4 mx-auto d-md-block d-none d-lg-none" id="ad3">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+{{/if}}
+ <form action="/search" method="GET" id="myForm2" class="d-none d-md-block">
+    <div class="input-group">
+        <input type="text" class="form-control " name="query" placeholder="Search ..." id="searchtext2">
+        <div class="input-group-append">
+            <button class="btn btn-danger" id="btn2">Search</button>
+        </div>
+    </div>
+    </form>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-sm-8 text-center">
+            <div class="card">
+                <div class="card-header bg-danger mb-2">
+                    <h5 class="text-white">Latest</h5>
+                </div>
+               
+                {{#each stories}}
+                    <div class="card-body " id="lat">
+                      {{ip}}
+                  <a href="/story/{{_id}}" id="tit"><h5 class="card-title">{{title}}</h5></a>
+               <!--   <a href="/edit/story/{{_id}}">edit</a>
+                 <a href="/delete/story/{{_id}}">delete</a>-->
+       <span> by <span class="text-danger"><a href="/user/{{user._id}}/{{user.username}}" class="text-danger">{{user.username}}.</a> </span>{{#if allowComment}}{{comments.length}}{{/if}} comment & {{views}} views.</span>                    
+                    
+                    </div>
+                     {{/each}}
+                     
+                    <div class="card-footer d-flex justify-content-center">
+                        {{#if pages}}
+                 <ul class="nav">
+                     {{#if startIndex}}
+          <li class="nav-item ">
+            <a class="nav-link" href="?page={{startIndex}}">[ <i class="fa fa-angle-double-left"></i> ]</a>
+        </li>
+        {{/if}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=1">[ 1 ]</a>
+        </li>
+        {{#if page2}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=2">[ 2 ]</a>
+        </li>
+        {{/if}}
+        {{#if page3}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=3">[ 3 ]</a>
+        </li>
+        {{/if}}
+        {{#if page4}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=4">[ 4 ]</a>
+        </li>
+        {{/if}}
+        {{#if page5}}
+         <li class="nav-item">
+            <a class="nav-link" href="?page=5">[ 5 ]</a>
+        </li>
+        {{/if}}
+        {{#if page6}}
+        <li class="nav-item">
+            <a class="nav-link" href="?page=6">[ 6 ]</a>
+        </li>
+        {{/if}}
+          {{#if pageNext}}
+         <li class="nav-item">
+            <a class="nav-link" href="?page={{nextIndex}}">[ <i class="fa fa-angle-double-right"></i> ]</a>
+        </li>
+        {{/if}}
+    </ul>
+    {{/if}}
+        </div>
+            </div>
+        </div>
+        <div class="col-sm-4 text-center">
+            <h5 class="spon text-danger">Sponsored post</h5>
+            {{#if sideBan}}
+            {{#each sideBan}}
+                <a href="{{url}}"><img src="{{ad.[0]}}" class="d-block mx-auto my-3" id="side1"></a>
+            
+            {{/each}}
+            {{ else }}
+            <div class="jumbotron mx-auto" id="side1">
+             <p>ad here</p>
+            </div>
+            {{/if}}
+            <div class="card">
+                <div class="card-header bg-danger mb-2">
+                 <h5 class="text-white">Trending</h5>
+                </div>
+                 {{#each trending}}
+                <div class="card-body" id="lat">
+                    
+               <a href="/story/{{_id}}" id="tit"><h5 class="card-title">{{title}}</h5></a>
+       <span> by <span class="text-danger"><a href="/user/{{user._id}}/{{user.username}}" class="text-danger">{{user.username}}.</a> </span>{{#if allowComment}}{{comments.length}}{{/if}} comment & {{views}} views.</span>                    
+                </div>
+                 {{/each}}
+            </div>
+             <div class="card mt-4">
+                <div class="card-header bg-danger mb-2">
+                 <h5 class="text-white">Latest Comments</h5>
+                </div>
+                   {{#if comments}}
+                  {{#each comments}}
+                 <div class="card-body " id="lat">
+                      <h5 class="card-title text-danger">{{commentBody}}</h5>
+                      <span> by <a href="/user/{{commentUser.id}}/{{commentUser.username}}" class="text-danger">{{commentUser.username}}({{commentUser.gender}})</a> at {{formatDate commentDate 'h:mma MMM D'}} on:</span>
+                     {{#each story}}
+                   <a href="/story/{{_id}}"> {{title}}</a>
+                  {{/each}}
+                 </div>
+                  {{/each}}
+                 {{ else}}
+                 <p>No latest comments</p>
+                 {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-none d-lg-block" id="ad1">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-none d-sm-block" id="ad2">
+    <p class="text-center">Responsive  ad here</p>
+</div>
+
+<div class="jumbotron mt-4 mx-auto d-md-block d-none d-lg-none" id="ad3">
+    <p class="text-center">Responsive  ad here</p>
+</div>

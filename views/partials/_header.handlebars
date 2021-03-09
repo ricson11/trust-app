@@ -1,0 +1,93 @@
+<div class="conatiner-fluid mb-2 bg-danger pb-3 " id="header">
+    <div class="container d-flex justify-content-between">
+            <i class="fa fa-reorder" id="list"></i>
+            <i class="fa fa-remove" id="listRemove"></i>
+            <i class="fa fa-reorder" id="list3"></i>
+            <i class="fa fa-remove" id="listRemove3"></i>
+
+     <a href="/" id="trus"><h5 class="text-center text-dark" id="head">Trust.<span class="text-white">com</span></h5></a>
+            <i class="fa fa-search" id="search"></i>
+   </div>
+    <p class="d-flex justify-content-end mr-3"><i class="fa fa-remove" id="removeSearch"></i></p> 
+    <a href="/" id="trus"> <h5 class="text-center text-dark" id="head2">Trust.<span class="text-white">com</span></h5></a>
+
+    <p class="text-center " id="des">Share your stories with others</p>
+      {{#if user}}
+    <p class="text-center" id="hi">Hi! <span class=" sake text-white">{{user.username}}</span></p>
+      {{/if}}
+      {{#if user.isAdmin}}
+      <a href="/admin/home"><p class=" ados text-center">Admin Place</p></a>
+      {{/if}}
+    <form action="/search" method="GET" id="myForm">
+    <div class="input-group">
+        <input type="search" class="form-control " name="query" id="searchText">
+        <div class="input-group-append">
+            <button class="btn btn-dark text-white" id="up">Search</button>
+        </div>
+    </div>
+    </form>
+   
+   <nav class="ul bg-danger" id="navi">
+       {{#if user}}
+        <a href="/"> Home</a>
+       <a href="/add"> Add story </a>
+     <a href="/stories"> My stories </a>
+
+        <a href="/user/{{user._id}}"> Profile</a>
+     <a href="/edit/user/{{user._id}}"> Edit Profile </a>
+     <a href="/logout"><i class="fa fa-sign-out"> </i> Logout</a>
+
+     {{ else }}
+        <a href="/"> Home</a>
+      <a href="/login"><i class="fa fa-sign-in"></i> Login</a>
+
+      <a href="/register"><i class="fa fa-user-plus"></i> Signup</a>
+
+    {{/if}}
+     
+     
+    </nav>
+</div>
+<nav class="ul" id="note5">
+</nav>
+
+<div class="container-fluid d-none d-md-block mt-2 " id="explore">
+    <ul class="nav d-flex justify-content-center">
+        {{#if user}}
+        <li class="nav-item">
+            <a href="/" class="nav-link">Home /</a>
+        </li>
+         <li class="nav-item">
+            <a href="/add" class="nav-link">Add Story /  </a>
+        </li>
+         <li class="nav-item">
+            <a href="/stories" class="nav-link">My Stories /  </a>
+        </li>
+         <li class="nav-item">
+            <a href="/user/{{user._id}}" class="nav-link">Profile /</a>
+        </li>
+         <li class="nav-item">
+            <a href="/edit/user/{{user._id}}" class="nav-link">Edit Profile /</a>
+        </li>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link">Logout </a>
+        </li>
+        {{ else }}
+          <li class="nav-item">
+            <a href="/" class="nav-link">Home /</a>
+        </li>
+         <li class="nav-item">
+            <a href="/login" class="nav-link">Login / </a>
+        </li>
+         <li class="nav-item">
+            <a href="/register" class="nav-link">Signup </a>
+        </li>
+      
+        {{/if}}
+          {{#if user.superAdmin}}
+          <li class="nav-item">
+            <a href="/admin/home" class="nav-link">/ Admin Home </a>
+        </li>
+        {{/if}}
+    </ul>
+</div>

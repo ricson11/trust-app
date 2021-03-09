@@ -1,0 +1,46 @@
+         
+
+<div class="container-fluid my-4 text-center">
+<div class="row">
+<div class="col-sm-6">
+<div class="card">
+<div class="card-header bg-danger text-white">
+<h5>Profile</h5>
+
+</div>
+
+{{#each users}}
+  <a href="/email/user/{{_id}}/{{username}}"><i class="fa fa-envelope"> Email this user</i></a>
+ <p class="card-title">Username: {{username}}</p>
+  <p class="card-title">Gender: {{gender}}</p>
+  <p class="card-title">Registered Date: {{formatDate date "MMM D YYYY"}}</p>
+
+{{/each}}
+
+</div>
+<a href="/"><p class="text-center mt-5">Go back</p></a>
+
+</div>
+<div class="col-sm-6">
+
+<div class="card">
+<div class="card-header bg-danger text-white">
+<h5>All stories</h5>
+</div>
+{{#if stories}}
+{{#each stories}}
+<div class="card-body">
+<a href="/story/{{_id}}"><h5 class="card-title">{{title}}</h5></a>
+       <span> by <span class="text-danger"><a href="/user/{{user._id}}/{{user.username}}" class="text-danger">{{user.username}}.</a> </span>{{comments.length}} comment & {{views}} views.</span>                    
+ <a href="/delete/story/{{_id}}" class="del bg-danger">Delete story <i class="fa fa-trash"></i></a>
+         <a href="/edit/story/{{_id}}" class="del bg-danger">Edit story <i class="fa fa-edit"></i></a>
+         
+</div>
+{{/each}}
+{{ else}}
+<p>No story yet</p>
+{{/if}}
+</div>
+</div>
+
+</div>
