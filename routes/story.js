@@ -287,14 +287,14 @@ router.post('/contact', (req, res)=>{
                rejectUnauthorized: false,
            },
            auth:{
-            user: 'elizaofficial5@gmail.com',
-            pass:'ifehor1995'
+            user: process.env.GMAIL_EMAIL,
+            pass:process.env.GMAIL_PASS
            },
        });
 
         var mailOptions={
-                      from:'elizaofficial5@gmail.com',
-                      to: 'elizaofficial5@gmail.com',
+                      from:process.env.GMAIL_EMAIL,
+                      to: process.env.GMAIL_EMAIL,
                       replyTo: req.body.sender,
                       subject: 'New contact @trust.com from,'+" " + req.body.Name,
                       text: req.body.detail,
