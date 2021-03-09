@@ -32,8 +32,6 @@
 <div class="card-body">
 <a href="/story/{{_id}}"><h5 class="card-title">{{title}}</h5></a>
        <span> by <span class="text-danger"><a href="/user/{{user._id}}/{{user.username}}" class="text-danger">{{user.username}}.</a> </span>{{comments.length}} comment & {{views}} views.</span>                    
- <a href="/delete/story/{{_id}}" class="del bg-danger">Delete story <i class="fa fa-trash"></i></a>
-         <a href="/edit/story/{{_id}}" class="del bg-danger">Edit story <i class="fa fa-edit"></i></a>
          
 </div>
 {{/each}}
