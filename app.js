@@ -38,8 +38,7 @@ mongoose.promise = global.promise;
 .catch(err=>console.log(err)); */
 
 //production
-mongoose.connect(process.env.mongodb_url,
-
+mongoose.connect('mongodb+srv://wonder:wonder5555@cluster0.t7kmz.mongodb.net/trust?retryWrites=true&w=majority',
 
 
 {
