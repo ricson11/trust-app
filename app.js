@@ -85,7 +85,7 @@ app.use(function(req, res, next){
 
 
       
-app.use('/', require('./routes/User'));
+app.use('/', require('./routes/user'));
 app.use('/', require('./routes/story'));
 app.use('/story/:id', require('./routes/comment'));
 app.use('/banner', require('./routes/banner'));
