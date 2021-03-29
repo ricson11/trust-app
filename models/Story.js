@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
+//const slugify = require('slugify');
 const Schema = mongoose.Schema;
 
 const StorySchema = new Schema({
@@ -52,19 +52,19 @@ const StorySchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'notifications'
     }],
-    slug:{
+   /* slug:{
         type: String,
         required: true,
         unique: true
-    },
+    }, */
     
 })
 
 
-StorySchema.pre('validate', function(){
+ /*StorySchema.pre('validate', function(){
     if(this.title){
         this.slug = slugify(this.title, {lower: true, strict: true})
     }
-})
+}) */
 
 module.exports = Story = mongoose.model('stories', StorySchema);

@@ -3,6 +3,7 @@ const router = express.Router();
 const env = require('dotenv');
 var nodemailer = require('nodemailer');
 const cloudinary = require('cloudinary');
+const mongooseSlugPlugin = require('mongoose-slug-plugin');
 require('../models/Story');
 require('../models/Comment');
 require('../models/Banner');
@@ -138,9 +139,9 @@ router.post('/story', upload.single('image'), async (req, res)=>{
 
 
 
-router.get('/edit/story/:slug',ensureAuthenticated ,async(req, res)=>{
+router.get('/edit/story/:id',ensureAuthenticated ,async(req, res)=>{
     try{
-    const story  = await Story.findOne({slug:req.params.slug})
+    const story  = await Story.findOne({_id:req.params.id})
     if(req.user.id == story.user || req.user.isAdmin || req.user.superAdmin){
     res.render('stories/edit', {story})
     }else{
@@ -154,10 +155,10 @@ router.get('/edit/story/:slug',ensureAuthenticated ,async(req, res)=>{
     }
 });
 
-  router.get('/story/:slug', async(req, res)=>{
+  router.get('/story/:id', async(req, res)=>{
      try{
        
-         const story = await Story.findOne({slug:req.params.slug})
+         const story = await Story.findOne({_id:req.params.id})
          .populate(' comments')
          .populate(' user')
             story.views++;
@@ -167,7 +168,7 @@ router.get('/edit/story/:slug',ensureAuthenticated ,async(req, res)=>{
           var    limit =parseInt(req.query.limit)||2
            var nextIndex = (page+1)
           var startIndex = (page-1)
-          const count = await Comment.countDocuments({story:req.params.slug})
+          const count = await Comment.countDocuments({story:req.params.id})
           const  pages = Math.ceil(count/limit)
           var page2 = (pages>1)
           var page3 = (pages>2)
@@ -176,7 +177,7 @@ router.get('/edit/story/:slug',ensureAuthenticated ,async(req, res)=>{
           if(nextIndex>pages || nextIndex<pageNext){
               pageNext=false;
           }
-         const comments = await Comment.find({story:req.params.slug}).sort({commentDate:-1}).populate('commentUser').populate('story')
+         const comments = await Comment.find({story:req.params.id}).sort({commentDate:-1}).populate('commentUser').populate('story')
          .limit(limit).skip((limit*page)-limit);
           let q = new RegExp(story.title, 'i');
           const similar = await Story.find({title:q}).sort({date:-1}).limit(3)
@@ -191,14 +192,14 @@ router.get('/edit/story/:slug',ensureAuthenticated ,async(req, res)=>{
   })
 
 
-router.put('/story/:slug', upload.single('image'), async(req, res)=>{
+router.put('/story/:id', upload.single('image'), async(req, res)=>{
     if(req.body.allowComment){
         allowComment=true;
     }else{
         allowComment=false;
     }
        if(req.file){
-          const story = await Story.findOne({slug:req.params.slug})
+          const story = await Story.findOne({_id:req.params.id})
           if(!story){
        res.redirect('/admin/home')
           } 
@@ -224,7 +225,7 @@ router.put('/story/:slug', upload.single('image'), async(req, res)=>{
     }
 })
     }else{
-        Story.findOne({slug:req.params.slug})
+        Story.findOne({_id:req.params.id})
         .then(story=>{
             story.allowComment= allowComment,
             story.title=req.body.title,
@@ -238,13 +239,13 @@ router.put('/story/:slug', upload.single('image'), async(req, res)=>{
     }
 })
 
-router.get('/delete/story/:slug', async(req, res)=>{
+router.get('/delete/story/:id', async(req, res)=>{
     try{
-        const story = await  Story.findOne({slug:req.params.slug})
+        const story = await  Story.findOne({_id:req.params.id})
     if(req.user.id==story.user || req.user.isAdmin || req.user.superAdmin){
      cloudinary.v2.uploader.destroy(story.cloudinary_id)
          
-        Story.deleteOne({slug:req.params.slug})
+        Story.deleteOne({_id:req.params.id})
          .then(()=>{
             req.flash('success_msg', ' Story deleted')
 
@@ -352,7 +353,7 @@ router.get('/stories', async(req, res)=>{
   res.render('stories/myStory', {stories, nextIndex, startIndex, page, limit, pages})
 })
 
-router.get('/like/story/:slug',async (req, res)=>{
+router.get('/like/story/:id',async (req, res)=>{
     try{
         const story = await Story.findOne({_id:req.params.id})
         story.like++;
@@ -364,7 +365,7 @@ router.get('/like/story/:slug',async (req, res)=>{
     }
 });
 
-router.get('/dislike/story/:slug',async (req, res)=>{
+router.get('/dislike/story/:id',async (req, res)=>{
     try{
         const story = await Story.findOne({_id:req.params.id})
         story.dislike++;
