@@ -7,6 +7,9 @@ module.exports={
     formatDate: function (date, format){
       return moment(date).format(format)
     },
+    formatTime: function (date){
+      return moment(date).fromNow()
+    }
     
 
 }

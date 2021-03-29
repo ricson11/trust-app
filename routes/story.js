@@ -3,12 +3,14 @@ const router = express.Router();
 const env = require('dotenv');
 var nodemailer = require('nodemailer');
 const cloudinary = require('cloudinary');
-const mongooseSlugPlugin = require('mongoose-slug-plugin');
 require('../models/Story');
 require('../models/Comment');
 require('../models/Banner');
 const upload = require('../middlewares/multer');
 const {ensureAuthenticated}=require('../helpers/auth');
+const User = require('../models/User');
+const notification = require('../models/Notification');
+const Contact = require('../models/Contact');
 
 env.config({path: '../.env'});
 
@@ -54,7 +56,7 @@ router.get('/',   async(req, res)=>{
 });
 
 
-router.post('/story', upload.single('image'), (req, res)=>{
+router.post('/story', upload.single('image'), async (req, res)=>{
     if(req.body.allowComment){
         allowComment=true;
     }else{
@@ -75,7 +77,7 @@ router.post('/story', upload.single('image'), (req, res)=>{
     }else{
      
        if(req.file){
-          cloudinary.v2.uploader.upload(req.file.path, {folder:'zenith'}, function(err, result){
+         cloudinary.v2.uploader.upload(req.file.path, {folder:'zenith'}, function(err, result){
               if(err){
                   console.log(err)
               }else{
@@ -90,14 +92,19 @@ router.post('/story', upload.single('image'), (req, res)=>{
                       cloudinary_id: result.public_id
             
                      }   
-                    Story.create(newStory, function(err){
-                        if(err){
-                            console.log(err)
-                        }else{
-                            console.log(newStory)
-                            res.redirect('/')
-                        }
-                    })
+                     
+                         Story.create(newStory, (err, story)=>{
+                         if(err){
+                             console.log(err)
+                         }else{
+                               
+                        console.log(story)
+                        res.redirect('/')
+                     }
+                     });
+                     
+                      
+                   
               }
           })
      
@@ -108,17 +115,21 @@ router.post('/story', upload.single('image'), (req, res)=>{
             details:req.body.details,
            allowComment: allowComment,
              user: req.user.id,
+               
     
-    
-             }   
-             Story.create(newStory, function(err){
-                if(err){
-                    console.log(err)
-                }else{
-                    console.log(newStory)
-                    res.redirect('/')
-                }
-            })
+             } 
+            
+             
+           try{
+               let story = await Story.create(newStory);
+            
+               
+               console.log(story)
+               res.redirect('/')
+               
+           }catch(err){
+               console.log(err)
+           }
        }
         
   
@@ -127,9 +138,9 @@ router.post('/story', upload.single('image'), (req, res)=>{
 
 
 
-router.get('/edit/story/:id',ensureAuthenticated ,async(req, res)=>{
+router.get('/edit/story/:slug',ensureAuthenticated ,async(req, res)=>{
     try{
-    const story  = await Story.findOne({_id:req.params.id})
+    const story  = await Story.findOne({slug:req.params.slug})
     if(req.user.id == story.user || req.user.isAdmin || req.user.superAdmin){
     res.render('stories/edit', {story})
     }else{
@@ -143,10 +154,10 @@ router.get('/edit/story/:id',ensureAuthenticated ,async(req, res)=>{
     }
 });
 
-  router.get('/story/:id', async(req, res)=>{
+  router.get('/story/:slug', async(req, res)=>{
      try{
-         
-         const story = await Story.findOne({_id:req.params.id})
+       
+         const story = await Story.findOne({slug:req.params.slug})
          .populate(' comments')
          .populate(' user')
             story.views++;
@@ -156,7 +167,7 @@ router.get('/edit/story/:id',ensureAuthenticated ,async(req, res)=>{
           var    limit =parseInt(req.query.limit)||2
            var nextIndex = (page+1)
           var startIndex = (page-1)
-          const count = await Comment.countDocuments({story:req.params.id})
+          const count = await Comment.countDocuments({story:req.params.slug})
           const  pages = Math.ceil(count/limit)
           var page2 = (pages>1)
           var page3 = (pages>2)
@@ -165,11 +176,11 @@ router.get('/edit/story/:id',ensureAuthenticated ,async(req, res)=>{
           if(nextIndex>pages || nextIndex<pageNext){
               pageNext=false;
           }
-         const comments = await Comment.find({story:req.params.id}).sort({commentDate:-1}).populate('commentUser').populate('story')
+         const comments = await Comment.find({story:req.params.slug}).sort({commentDate:-1}).populate('commentUser').populate('story')
          .limit(limit).skip((limit*page)-limit);
           let q = new RegExp(story.title, 'i');
           const similar = await Story.find({title:q}).sort({date:-1}).limit(3)
-
+   
          // const story_body = decode(story.details);
         
           res.render('stories/show', {story, comments,similar,count,nextIndex,pageNext,startIndex, limit, page, pages, page2, page3});
@@ -180,14 +191,14 @@ router.get('/edit/story/:id',ensureAuthenticated ,async(req, res)=>{
   })
 
 
-router.put('/story/:id', upload.single('image'), async(req, res)=>{
+router.put('/story/:slug', upload.single('image'), async(req, res)=>{
     if(req.body.allowComment){
         allowComment=true;
     }else{
         allowComment=false;
     }
        if(req.file){
-          const story = await Story.findOne({_id:req.params.id})
+          const story = await Story.findOne({slug:req.params.slug})
           if(!story){
        res.redirect('/admin/home')
           } 
@@ -213,7 +224,7 @@ router.put('/story/:id', upload.single('image'), async(req, res)=>{
     }
 })
     }else{
-        Story.findOne({_id:req.params.id})
+        Story.findOne({slug:req.params.slug})
         .then(story=>{
             story.allowComment= allowComment,
             story.title=req.body.title,
@@ -227,13 +238,13 @@ router.put('/story/:id', upload.single('image'), async(req, res)=>{
     }
 })
 
-router.get('/delete/story/:id', async(req, res)=>{
+router.get('/delete/story/:slug', async(req, res)=>{
     try{
-        const story = await  Story.findOne({_id:req.params.id})
+        const story = await  Story.findOne({slug:req.params.slug})
     if(req.user.id==story.user || req.user.isAdmin || req.user.superAdmin){
      cloudinary.v2.uploader.destroy(story.cloudinary_id)
          
-        Story.deleteOne({_id:req.params.id})
+        Story.deleteOne({slug:req.params.slug})
          .then(()=>{
             req.flash('success_msg', ' Story deleted')
 
@@ -276,42 +287,6 @@ router.get('/search', async(req, res)=>{
 })
 
 
-
-router.post('/contact', (req, res)=>{
-      
-       let transporter = nodemailer.createTransport({
-           host: 'smtp.gmail.com',
-           port: 465,
-           secure: true,
-           tls:{
-               rejectUnauthorized: false,
-           },
-           auth:{
-            user: process.env.GMAIL_EMAIL,
-            pass:process.env.GMAIL_PASS
-           },
-       });
-
-        var mailOptions={
-                      from:process.env.GMAIL_EMAIL,
-                      to: process.env.GMAIL_EMAIL,
-                      replyTo: req.body.sender,
-                      subject: 'New contact @trust.com from,'+" " + req.body.Name,
-                      text: req.body.detail,
-             };
-          
-            transporter.sendMail(mailOptions, function(err, info){
-              if(err){
-                  console.log(err)
-                  req.flash('error_msg', 'Message not sent, try again')
-                  return res.redirect('back')
-              }else{
-                  console.log('Message sent successfully' + info.response)
-                  req.flash('success_msg', 'Message delivered successfully')
-                  return res.redirect('back')
-              }
-          })
-      })
 
 router.get('/report/user/:username', async(req, res)=>{
     try{
@@ -377,7 +352,7 @@ router.get('/stories', async(req, res)=>{
   res.render('stories/myStory', {stories, nextIndex, startIndex, page, limit, pages})
 })
 
-router.get('/like/story/:id',async (req, res)=>{
+router.get('/like/story/:slug',async (req, res)=>{
     try{
         const story = await Story.findOne({_id:req.params.id})
         story.like++;
@@ -389,7 +364,7 @@ router.get('/like/story/:id',async (req, res)=>{
     }
 });
 
-router.get('/dislike/story/:id',async (req, res)=>{
+router.get('/dislike/story/:slug',async (req, res)=>{
     try{
         const story = await Story.findOne({_id:req.params.id})
         story.dislike++;
@@ -404,5 +379,6 @@ router.get('/dislike/story/:id',async (req, res)=>{
 router.get('/coming', (req, res)=>{
     res.send('coming soon')
 })
+
     
 module.exports = router;

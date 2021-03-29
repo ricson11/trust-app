@@ -18,6 +18,28 @@
       {{#if user.isAdmin}}
       <a href="/admin/home"><p class=" ados text-center">Admin Place</p></a>
       {{/if}}
+     
+    {{#if user.superAdmin}}
+    {{#if notifications}}
+  <button type="button" class="btn btn-primary d-block mx-auto" id="note">
+    Message notification <span class="badge badge-light">{{notifications.length}}</span>
+  </button>
+   {{/if}}
+    
+     <div class="container text-center col-sm-4" id="notify">
+       <i class="fa fa-times" id="removeNote"></i>
+        {{#each notifications}}
+        <div class="card card-body mb-2" id="cardo">
+              <p class="text-white">Message from {{name}}</p>
+
+         <a href="/notifications/{{contactId}}" id="mes"> <p class="text-white">View details</p></a>
+
+        </div>
+     {{/each}}
+     </div>
+     
+    
+     {{/if}}
     <form action="/search" method="GET" id="myForm">
     <div class="input-group">
         <input type="search" class="form-control " name="query" id="searchText">
@@ -36,6 +58,7 @@
         <a href="/user/{{user._id}}"> Profile</a>
      <a href="/edit/user/{{user._id}}"> Edit Profile </a>
      <a href="/logout"><i class="fa fa-sign-out"> </i> Logout</a>
+   
 
      {{ else }}
         <a href="/"> Home</a>
@@ -44,7 +67,7 @@
       <a href="/register"><i class="fa fa-user-plus"></i> Signup</a>
 
     {{/if}}
-     
+   
      
     </nav>
 </div>
@@ -91,3 +114,33 @@
         {{/if}}
     </ul>
 </div>
+
+<style>
+  #notify{
+    display: none;
+  }
+  #cardo{
+    background: green;
+  }
+  #removeNote{
+    color: white;
+  }
+ 
+</style>
+<script>
+  var note = document.getElementById('note');
+ var notify = document.getElementById('notify');
+ var removeNote = document.getElementById('removeNote');
+
+ note.addEventListener('click', function(){
+   notify.style.display='block';
+ })
+ 
+ removeNote.addEventListener('click', function(){
+   notify.style.display='none';
+ })
+ 
+ removeNote.addEventListener('mouseover', function(){
+   removeNote.innerText='Close messages';
+ })
+</script>

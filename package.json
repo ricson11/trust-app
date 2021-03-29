@@ -42,7 +42,9 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "popper.js": "^1.16.1",
+    "request": "^2.88.2",
     "shortid": "^2.2.15",
+    "slugify": "^1.5.0",
     "summernote": "^0.8.18"
   }
 }

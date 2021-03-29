@@ -29,6 +29,15 @@ const UserSchema = new Schema({
          type: Date,
          default: Date.now
      },
+      notifications:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'notifications'
+    }],
+    followers:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users'
+    }],
+   
      story:{
        
         type: mongoose.Schema.Types.ObjectId,

@@ -79,10 +79,10 @@ router.get('/delete/user/:id', (req, res)=>{
   
 
 
-router.get('/only/story/:id', async(req, res)=>{
+router.get('/only/story/:slug', async(req, res)=>{
   try{
       
-      const story = await Story.findOne({_id:req.params.id})
+      const story = await Story.findOne({slug:req.params.slug})
       .populate(' comments')
       .populate(' user')
          story.views++;
@@ -92,7 +92,7 @@ router.get('/only/story/:id', async(req, res)=>{
        var    limit =parseInt(req.query.limit)||2
         var nextIndex = (page+1)
        var startIndex = (page-1)
-       const count = await Comment.countDocuments({story:req.params.id})
+       const count = await Comment.countDocuments({story:req.params.slug})
        const  pages = Math.ceil(count/limit)
        var page2 = (pages>1)
        var page3 = (pages>2)
@@ -101,7 +101,7 @@ router.get('/only/story/:id', async(req, res)=>{
        if(nextIndex>pages || nextIndex<pageNext){
            pageNext=false;
        }
-      const comments = await Comment.find({story:req.params.id}).sort({commentDate:-1}).populate('commentUser').populate('story')
+      const comments = await Comment.find({story:req.params.slug}).sort({commentDate:-1}).populate('commentUser').populate('story')
       .limit(limit).skip((limit*page)-limit);
        let q = new RegExp(story.title, 'i');
        const similar = await Story.find({title:q}).sort({date:-1}).limit(3)

@@ -9,7 +9,10 @@ const env = require('dotenv');
 require('../models/Story');
 require('../models/Comment');
 require('../models/User');
+require('../models/Notification');
+
 const {ensureAuthenticated} = require('../helpers/auth');
+const User = require('../models/User');
 env.config({path: '../.env'});
 
 
@@ -121,16 +124,23 @@ router.post('/register', (req, res)=>{
 
    router.get('/user/:id/:username', async(req, res)=>{
      try{
-    const user = await User.findOne({_id:req.params.id})
+    const user = await User.findOne({_id:req.params.id}).populate('followers')
     const users = await User.find({_id:req.params.id})
     const stories = await Story.find({user: req.params.id}).populate('user')
-
+   
+   
     res.render('users/person', {user, users, stories})
      }
      catch(err){
        console.log(err.message)
+       req.flash('error_msg', 'Please sign up to access this page')
+       return res.redirect('back')
      }
 })
+
+
+
+
 
    router.get('/email/user/:id/:username', async(req, res)=>{
      try{

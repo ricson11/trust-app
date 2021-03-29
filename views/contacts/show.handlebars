@@ -1,0 +1,60 @@
+{{>_header}}
+
+<div class="container">
+   
+       
+              
+
+ 
+</div>
+<div class="container my-2 text-center">
+    <p class="text-right"><a href="/delete/notification/{{contact._id}}"><button class="btn btn-danger" id="mesBtn">Delete this message</button></a></p>
+    <h5 class="">Sender name</h5>
+ <p class="text-center">{{contact.name}}</p>
+ <h5 class="">Sender email</h5>
+   <p class="text-center">{{contact.sender}}</p>
+    <h5 class="">Message details</h5>
+     <p class="text-center">{{contact.detail}}</p>
+</div>
+<p class="text-center"><a href="/messages">View recent messages</a></p>
+
+          <div class="container ">
+             <h5 class="write">Reply Form</h5>
+               <form action="/reply" method="POST" id="contact">
+               <div class="form-group">
+                   <label id="name">Sender name</label>
+               <input type="text" class="form-control" value="{{contact.name}}" name="name" id="con1" require>
+               </div>
+                <div class="form-group">
+                    <label id="sender">Sender email</label>
+               <input type="email" class="form-control" name="sender" value="{{contact.sender}}" id="con2" require>
+               </div>
+                <div class="form-group">
+                    <label id="detail">Your reply</label>
+                    <textarea name="detail" rows="5" class="form-control" id="con" placeholder="type your message here..."></textarea>
+               </div>
+                <div class="form-group">
+                    <button class="btn btn-primary">Reply message</button>
+               </div>
+               </form>
+        </div>
+
+<style>
+    #mesBtn{
+        box-shadow: 0px 2px 2px grey;
+        border-radius: 10px;
+    }
+</style>
+<script>
+    var cons = document.getElementById('con1');
+        var con2 = document.getElementById('con2');
+
+
+    cons.addEventListener('mousedown', function(e){
+        e.preventDefault();
+    });
+    
+    con2.addEventListener('mousedown', function(e){
+        e.preventDefault();
+    })
+</script>

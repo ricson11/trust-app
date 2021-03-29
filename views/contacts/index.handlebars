@@ -1,0 +1,20 @@
+{{>_header}}
+
+<div class="container my-4 col-sm-5 text-center">
+    {{#if contacts}}
+    <h5 class="text-center my-2">All messages</h5>
+    {{ else }}
+        <h5 class="text-center my-2">No messages yet</h5>
+     {{/if}}
+    {{#each contacts}}
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">Message from {{name}}</h5>
+        
+        <p class="card-text"><badge class="badge badge-primary">{{formatTime date }}</badge></p>
+       
+        <p class="card-text"><a href="/notifications/{{_id}}">View details</a></p>
+    </div>
+</div>
+{{/each}}
+</div>

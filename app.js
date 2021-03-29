@@ -21,6 +21,8 @@ const Story = require('./models/Story');
 const User = require('./models/User');
 const Comment = require('./models/Comment');
 const banner = require('./models/Comment');
+ require('./models/Notification');
+require('./models/Contact');
 
 env.config({path: './.env'});
 
@@ -45,15 +47,16 @@ mongoose.connect(process.env.mongoConnection,
     useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true
 })
 .then(()=>console.log('mongodb is connected'))
-.catch(err=>console.log(err));
+.catch(err=>console.log(err)); 
  
 app.use(bodyparser.urlencoded({extended:false}))
 app.use(bodyparser.json());
 
- const { formatDate} = require('./helpers/hps');
+ const { formatDate, formatTime} = require('./helpers/hps');
 app.engine('handlebars', exphbs({
     helpers:{
-            formatDate: formatDate 
+            formatDate: formatDate,
+            formatTime: formatTime
     },
     handlebars:allowInsecurePrototypeAccess(Handlebars),
     defaultLayout: 'main'
@@ -74,16 +77,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(flash());
-app.use(function(req, res, next){
+app.use(async function(req, res, next){
     res.locals.success_msg = req.flash('success_msg')
     res.locals.error_msg = req.flash('error_msg')
     res.locals.error = req.flash('error')
     res.locals.user = req.user || null;
+    try{
+       // let user = await User.findById(req.user._id).populate('notifications', null, {isRead: false}).exec();
+       // res.locals.notifications = user.notifications.reverse();
+        let notify = await Notification.find({isRead:'false'}).sort({date:-1})
+        res.locals.notifications = notify;
+    }catch(err){
+        console.log(err.message)
+    }
     next();
 });
 
 
-      
+app.use('/', require('./routes/contact'));
 app.use('/', require('./routes/user'));
 app.use('/', require('./routes/story'));
 app.use('/story/:id', require('./routes/comment'));

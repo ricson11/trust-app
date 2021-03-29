@@ -1,4 +1,4 @@
-         
+    {{>_msg}}     
 
 <div class="container-fluid my-4 text-center">
 <div class="row">
@@ -14,7 +14,14 @@
  <p class="card-title">Username: {{username}}</p>
   <p class="card-title">Gender: {{gender}}</p>
   <p class="card-title">Registered Date: {{formatDate date "MMM D YYYY"}}</p>
+  {{#if followers}}
+<p class="text-danger " ><a href="/follow/{{_id}}" class="follows">follow</a></p>
+{{/if}}
+<p class="text-danger " ><a href="/unfollow/{{_id}}" class="follows">unfollow</a></p>
 
+{{followers.length}}
+ <a href="/user/{{followers.[0]}}">{{followers.[0]}}</a><br>
+  {{followers.[1]}}
 {{/each}}
 
 </div>
@@ -42,3 +49,11 @@
 </div>
 
 </div>
+
+<script>
+  var follow = document.querySelector('.follows');
+follow.addEventListener('click', function(){
+    follow.innerText='following';
+    
+})
+</script>

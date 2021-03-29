@@ -57,7 +57,7 @@
                
                 {{#each stories}}
                     <div class="card-body " id="lat">
-                      {{ip}}
+                     
                   <a href="/story/{{_id}}" id="tit"><h5 class="card-title">{{title}}</h5></a>
                <!--   <a href="/edit/story/{{_id}}">edit</a>
                  <a href="/delete/story/{{_id}}">delete</a>-->
@@ -169,3 +169,23 @@
 <div class="jumbotron mt-4 mx-auto d-md-block d-none d-lg-none" id="ad3">
     <p class="text-center">Responsive  ad here</p>
 </div>
+
+<div class="container my-3">
+    <h5 class="text-center text-danger my-4">Subscribe to our newsletter</h5>
+    <form action="signup" method="POST">
+  <div class="input-group">
+        <input type="email" name="email" placeholder="Enter your email..."class="form-control" id="subs">
+  
+     <div class="input-group-append">
+         <button type="submit" class="btn btn-danger">Subscribe </button>
+     </div>
+     </div>
+    </form>
+</div>
+
+<style>
+    #subs{
+        background: ghostwhite;
+        border: red dotted;
+    }
+</style>
