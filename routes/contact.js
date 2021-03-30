@@ -175,7 +175,7 @@ router.post('/signup', (req, res)=>{
           url: 'https://us1.api.mailchimp.com/3.0/lists/a3318170e1',
           method: 'POST',
           headers: {
-              Authorization: 'auth 378301469466fe2940b28f5ccaf89cee-us1'
+              Authorization: process.env.newsletterApi
           },
           body: postData
       }
