@@ -111,6 +111,11 @@ app.use('/dist', express.static(__dirname + '/node_modules/summernote/dist'));
 app.use('/ckeditor4', express.static(__dirname + '/node_modules/ckeditor4'));
 app.use('/dist', express.static(__dirname + '/node_modules/axios/dist'));
 
+//404 route
+app.use( function(req, res){
+    res.status(404).render('errors/404')
+});
+
 app.set('port', process.env.PORT || 500);
 app.listen(app.get('port'),()=>console.log('server is running on port' + " "+ app.get('port')));
 
